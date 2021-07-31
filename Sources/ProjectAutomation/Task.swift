@@ -24,12 +24,16 @@ public struct Task {
             CommandLine.argc > taskCommandLineIndex
         else { return }
         let attributesString = CommandLine.arguments[taskCommandLineIndex + 1]
-        // swiftlint:disable force_try
-        let attributes: [String: String] = try! JSONDecoder().decode(
-            [String: String].self,
-            from: attributesString.data(using: .utf8)!
-        )
-        try! task(attributes)
-        // swiftlint:enable force_try
+
+        do {
+            let attributes: [String: String] = try JSONDecoder().decode(
+                [String: String].self,
+                from: attributesString.data(using: .utf8)!
+            )
+
+            try task(attributes)
+        } catch {
+            print("Unexpected error running task: \(error.localizedDescription)")
+        }
     }
 }
