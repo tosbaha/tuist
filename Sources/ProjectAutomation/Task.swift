@@ -8,32 +8,39 @@ public struct Task {
         case option(String)
     }
 
-    public init(
+    @_disfavoredOverload public init(
         options: [Option] = [],
+        task: @escaping ([String: String]) throws -> Void
+    ) {
+        self.init(options: options, task: task)
+    }
+
+    init(
+        options: [Option] = [],
+        arguments: [String] = CommandLine.arguments,
         task: @escaping ([String: String]) throws -> Void
     ) {
         self.options = options
         self.task = task
 
-        runIfNeeded()
+        runIfNeeded(arguments: arguments)
     }
 
-    private func runIfNeeded() {
+    private func runIfNeeded(arguments: [String]) {
         guard
-            let taskCommandLineIndex = CommandLine.arguments.firstIndex(of: "--tuist-task"),
-            CommandLine.argc > taskCommandLineIndex
+            let taskCommandLineIndex = arguments.firstIndex(of: "--tuist-task"),
+            arguments.count > taskCommandLineIndex
         else { return }
-        let attributesString = CommandLine.arguments[taskCommandLineIndex + 1]
+        let attributesString = arguments[taskCommandLineIndex + 1]
 
         do {
             let attributes: [String: String] = try JSONDecoder().decode(
                 [String: String].self,
                 from: attributesString.data(using: .utf8)!
             )
-
             try task(attributes)
         } catch {
-            print("Unexpected error running task: \(error.localizedDescription)")
+            print("Unexpected error running task: \(String(describing: error))")
         }
     }
 }

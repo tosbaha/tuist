@@ -1,21 +1,9 @@
-import ProjectAutomation
 import XCTest
+@testable import ProjectAutomation
 
 class TaskTests: XCTestCase {
-    override class func setUp() {
-        super.setUp()
-
-        CommandLine.arguments = ["--tuist-task", "exec", "task_name"]
-    }
-
-    override func tearDown() {
-        super.tearDown()
-
-        CommandLine.arguments = []
-    }
-
     func test_errorThrownFromTaskIsHandled() {
-        _ = Task { _ in
+        _ = Task(arguments: ["--tuist-task", "exec", "task_name"]) { _ in
             throw NSError(domain: #file, code: #line, userInfo: nil)
         }
     }
