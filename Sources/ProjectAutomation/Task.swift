@@ -45,6 +45,7 @@ public struct Task {
                 from: attributesString.data(using: .utf8)!
             )
             try task(attributes)
+            exitHandler(EXIT_SUCCESS)
         } catch {
             print("Unexpected error running task: \(String(describing: error))")
             exitHandler(EXIT_FAILURE)
