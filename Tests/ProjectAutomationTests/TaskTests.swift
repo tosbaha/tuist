@@ -3,8 +3,10 @@ import XCTest
 
 class TaskTests: XCTestCase {
     func test_errorThrownFromTaskIsHandled() {
-        _ = Task(arguments: ["--tuist-task", "exec", "task_name"]) { _ in
+        var exitCode: Int32?
+        _ = Task(options: [], arguments: ["--tuist-task", "exec", "task_name"], exitHandler: { exitCode = $0 }) { _ in
             throw NSError(domain: #file, code: #line, userInfo: nil)
         }
+        XCTAssertEqual(exitCode, EXIT_FAILURE)
     }
 }

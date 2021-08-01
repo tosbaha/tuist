@@ -8,25 +8,31 @@ public struct Task {
         case option(String)
     }
 
-    @_disfavoredOverload public init(
+    public init(
         options: [Option] = [],
         task: @escaping ([String: String]) throws -> Void
     ) {
-        self.init(options: options, task: task)
+        self.init(
+            options: options,
+            arguments: CommandLine.arguments,
+            exitHandler: { exit($0) }, // wrap true exit handler to convert (Int32) -> Never to (Int32) -> Void
+            task: task
+        )
     }
 
     init(
-        options: [Option] = [],
-        arguments: [String] = CommandLine.arguments,
+        options: [Option],
+        arguments: [String],
+        exitHandler: (Int32) -> Void,
         task: @escaping ([String: String]) throws -> Void
     ) {
         self.options = options
         self.task = task
 
-        runIfNeeded(arguments: arguments)
+        runIfNeeded(arguments: arguments, exitHandler: exitHandler)
     }
 
-    private func runIfNeeded(arguments: [String]) {
+    private func runIfNeeded(arguments: [String], exitHandler: (Int32) -> Void) {
         guard
             let taskCommandLineIndex = arguments.firstIndex(of: "--tuist-task"),
             arguments.count > taskCommandLineIndex
@@ -41,6 +47,7 @@ public struct Task {
             try task(attributes)
         } catch {
             print("Unexpected error running task: \(String(describing: error))")
+            exitHandler(EXIT_FAILURE)
         }
     }
 }
