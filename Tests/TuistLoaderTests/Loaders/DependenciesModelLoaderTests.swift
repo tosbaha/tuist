@@ -75,7 +75,8 @@ final class DependenciesModelLoaderTests: TuistUnitTestCase {
                 deploymentTargets: [
                     .iOS("13.0", [.iphone]),
                     .macOS("10.0"),
-                ]
+                ],
+                productSettings: [:]
             ),
             platforms: [.iOS, .macOS]
         )

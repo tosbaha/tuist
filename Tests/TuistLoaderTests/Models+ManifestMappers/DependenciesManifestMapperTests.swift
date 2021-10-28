@@ -58,7 +58,8 @@ final class DependenciesManifestMapperTests: TuistUnitTestCase {
                     .iOS("13.0", [.iphone]),
                     .macOS("10.0"),
                     .tvOS("13.0"),
-                ]
+                ],
+                productSettings: [:]
             ),
             platforms: [.iOS, .macOS, .tvOS]
         )

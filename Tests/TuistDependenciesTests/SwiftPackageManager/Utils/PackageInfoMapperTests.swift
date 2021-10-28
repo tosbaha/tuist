@@ -2054,6 +2054,7 @@ extension PackageInfoMapping {
             name: package,
             path: basePath.appending(component: package).appending(component: "Path"),
             productTypes: [:],
+            productSettings: [:],
             platforms: platforms,
             deploymentTargets: [],
             targetToProducts: targetToProducts,

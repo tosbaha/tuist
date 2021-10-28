@@ -104,6 +104,7 @@ public final class SwiftPackageManagerInteractor: SwiftPackageManagerInteracting
             productTypes: dependencies.productTypes,
             platforms: platforms,
             deploymentTargets: dependencies.deploymentTargets,
+            productSettings: dependencies.productSettings,
             swiftToolsVersion: swiftToolsVersion
         )
 

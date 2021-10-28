@@ -10,6 +10,9 @@ public struct SwiftPackageManagerDependencies: Equatable {
 
     /// Set of deployment targets to be used when the SPM package does not specify a target version.
     public let deploymentTargets: Set<DeploymentTarget>
+    
+    /// The custom `SettingsDictionary` to be applied to SPM targets
+    public let productSettings: [String: SettingsDictionary]
 
     /// Initializes a new `SwiftPackageManagerDependencies` instance.
     /// - Parameters:
@@ -18,11 +21,13 @@ public struct SwiftPackageManagerDependencies: Equatable {
     public init(
         _ packages: [Package],
         productTypes: [String: Product],
-        deploymentTargets: Set<DeploymentTarget>
+        deploymentTargets: Set<DeploymentTarget>,
+        productSettings: [String: SettingsDictionary]
     ) {
         self.packages = packages
         self.productTypes = productTypes
         self.deploymentTargets = deploymentTargets
+        self.productSettings = productSettings
     }
 }
 

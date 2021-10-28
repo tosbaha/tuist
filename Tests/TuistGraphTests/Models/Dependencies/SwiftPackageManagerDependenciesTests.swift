@@ -11,7 +11,8 @@ final class SwiftPackageManagerDependenciesTests: TuistUnitTestCase {
                 .remote(url: "url/url/url", requirement: .branch("branch")),
             ],
             productTypes: [:],
-            deploymentTargets: []
+            deploymentTargets: [],
+            productSettings: [:]
         )
 
         // When
@@ -44,7 +45,8 @@ final class SwiftPackageManagerDependenciesTests: TuistUnitTestCase {
                 .local(path: "/path/path/path"),
             ],
             productTypes: [:],
-            deploymentTargets: []
+            deploymentTargets: [],
+            productSettings: [:]
         )
 
         // When

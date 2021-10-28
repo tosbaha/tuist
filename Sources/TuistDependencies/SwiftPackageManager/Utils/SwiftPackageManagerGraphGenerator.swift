@@ -48,6 +48,7 @@ public protocol SwiftPackageManagerGraphGenerating {
         productTypes: [String: TuistGraph.Product],
         platforms: Set<TuistGraph.Platform>,
         deploymentTargets: Set<TuistGraph.DeploymentTarget>,
+        productSettings: [String: TuistGraph.SettingsDictionary],
         swiftToolsVersion: TSCUtility.Version?
     ) throws -> TuistCore.DependenciesGraph
 }
@@ -70,6 +71,7 @@ public final class SwiftPackageManagerGraphGenerator: SwiftPackageManagerGraphGe
         productTypes: [String: TuistGraph.Product],
         platforms: Set<TuistGraph.Platform>,
         deploymentTargets: Set<TuistGraph.DeploymentTarget>,
+        productSettings: [String: TuistGraph.SettingsDictionary],
         swiftToolsVersion: TSCUtility.Version?
     ) throws -> TuistCore.DependenciesGraph {
         let artifactsFolder = path.appending(component: "artifacts")
@@ -124,6 +126,7 @@ public final class SwiftPackageManagerGraphGenerator: SwiftPackageManagerGraphGe
                 name: packageInfo.name,
                 path: packageInfo.folder,
                 productTypes: productTypes,
+                productSettings: productSettings,
                 platforms: platforms,
                 deploymentTargets: deploymentTargets,
                 targetToProducts: targetToProducts,

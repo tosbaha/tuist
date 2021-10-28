@@ -256,6 +256,7 @@ class SwiftPackageManagerGraphGeneratorTests: TuistTestCase {
             ],
             platforms: [.iOS],
             deploymentTargets: deploymentTargets,
+            productSettings: [:],
             swiftToolsVersion: nil
         )
 
